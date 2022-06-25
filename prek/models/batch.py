@@ -1,13 +1,13 @@
 from django.db import models
-from .base import BaseUUIDModel
+from .base import BaseUUIDTimeStampedModel
 from .course import Course
 
 
-class Batch(BaseUUIDModel):
+class Batch(BaseUUIDTimeStampedModel):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
-    start_date = models.DateField(blank=True, null=True)
+    start_date = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         db_table = 'batches'

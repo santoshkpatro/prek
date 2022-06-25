@@ -1,9 +1,9 @@
 from django.db import models
-from .base import BaseUUIDModel
+from .base import BaseUUIDTimeStampedModel
 from .course import Course
 
 
-class Plan(BaseUUIDModel):
+class Plan(BaseUUIDTimeStampedModel):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='course_plans')
     name = models.CharField(max_length=50)
     description = models.TextField(blank=True, null=True)

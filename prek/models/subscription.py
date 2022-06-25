@@ -1,11 +1,11 @@
 from django.db import models
-from .base import BaseUUIDModel
+from .base import BaseUUIDTimeStampedModel
 from .user import User
 from .plan import Plan
 from .course import Course
 
 
-class Subscription(BaseUUIDModel):
+class Subscription(BaseUUIDTimeStampedModel):
     STATUS_CHOICES = (
         (0, 'valid'),
         (1, 'pending'),
@@ -18,8 +18,8 @@ class Subscription(BaseUUIDModel):
     course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True)
     subscription_code = models.CharField(max_length=100, blank=True, null=True)
     is_active = models.BooleanField(default=True)
-    valid_from = models.DateField()
-    valid_upto = models.DateField()
+    valid_from = models.DateTimeField()
+    valid_upto = models.DateTimeField()
     note = models.TextField(blank=True, null=True)
     status = models.IntegerField(default=0, choices=STATUS_CHOICES)
 

@@ -11,7 +11,7 @@ from rest_framework_simplejwt.tokens import AccessToken, RefreshToken
 
 from prek.models.user import User
 from .serializers import LoginSerializer, RegisterSerializer
-from .helpers import send_verification_email
+from .tasks import send_verification_email
 
 
 @api_view(['POST'])
@@ -28,7 +28,7 @@ def register_view(request):
 
         if not existing_user.is_email_verified:
             # Send verification email
-            send_verification_email(existing_user.email)
+            send_verification_email.delay(existing_user.email)
             return Response(data={'detail': 'Email verification link has been sent'}, status=status.HTTP_200_OK)
 
         return Response(data={'detail': 'Account exists with this email address'}, status=status.HTTP_400_BAD_REQUEST)
@@ -40,7 +40,7 @@ def register_view(request):
         user.save()
 
         # Send verification email
-        send_verification_email(user.email)
+        send_verification_email.delay(user.email)
 
         return Response(data={'detail': 'Account created successfully!'}, status=status.HTTP_200_OK)
 

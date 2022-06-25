@@ -1,9 +1,9 @@
 from django.db import models
 from .user import User
-from .base import BaseUUIDModel
+from .base import BaseUUIDTimeStampedModel
 
 
-class Course(BaseUUIDModel):
+class Course(BaseUUIDTimeStampedModel):
     instructor = models.ForeignKey(User, on_delete=models.PROTECT, related_name='instructor_courses')
     title = models.CharField(max_length=300)
     description = models.TextField(blank=True, null=True)

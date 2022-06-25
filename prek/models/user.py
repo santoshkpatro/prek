@@ -1,6 +1,6 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
-from .base import BaseUUIDModel
+from .base import BaseUUIDTimeStampedModel
 
 
 class UserManager(BaseUserManager):
@@ -35,7 +35,7 @@ class ActiveUserManager(models.Manager):
         return super().get_queryset().filter(is_active=True)
 
 
-class User(BaseUUIDModel, AbstractBaseUser):
+class User(BaseUUIDTimeStampedModel, AbstractBaseUser):
     email = models.EmailField(max_length=255, unique=True, verbose_name='email address')
     full_name = models.CharField(max_length=255)
     phone = models.CharField(max_length=20, blank=True, null=True, db_index=True)

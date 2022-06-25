@@ -60,3 +60,9 @@ FRONTEND_BASE_URL = 'localhost:3000'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_EMAIL = 'Prek <admin@prek.in>'
 NO_REPLY_EMAIL = 'Prek <noreply@prek.in>'
+
+# CELERY CONFIG
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_IMPORTS = [
+    'prek.api.v1.auth.tasks',
+]
